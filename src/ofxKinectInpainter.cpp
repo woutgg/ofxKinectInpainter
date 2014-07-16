@@ -33,7 +33,8 @@ void ofxKinectInpainter::inpaint(ofxCvGrayscaleImage &img) {
 	// do the actual inpainting on a low res version
 	// using INPAINT_NS is faster than the other option (cv::INPAINT_TELEA)
 	cv::Mat imgg = scaled.getCvImage();
-	cv::inpaint(scaled.getCvImage(), scaledMask.getCvImage(), imgg, inpaintRadius, cv::INPAINT_NS);
+	const cv::Mat maskImg = scaledMask.getCvImage();
+	cv::inpaint(imgg, maskImg, imgg, inpaintRadius, cv::INPAINT_NS);
 	scaled.flagImageChanged();
 
 
